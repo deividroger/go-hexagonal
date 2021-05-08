@@ -41,7 +41,26 @@ func TestRun(t *testing.T) {
 		productMock.GetStatus())
 
 	result, err := cli.Run(service, "create", "", productName, productPrice)
-
 	require.Nil(t, err)
 	require.Equal(t, result, resultExpected)
+
+	resultExpected = fmt.Sprintf("Product %s has been enable", productMock.GetName())
+	result, err = cli.Run(service, "enable", productId, "", 0)
+	require.Nil(t, err)
+	require.Equal(t, result, resultExpected)
+
+	resultExpected = fmt.Sprintf("Product %s has been disabled", productMock.GetName())
+	result, err = cli.Run(service, "disable", productId, "", 0)
+	require.Nil(t, err)
+	require.Equal(t, result, resultExpected)
+
+	resultExpected = fmt.Sprintf("Product ID: %s\nName: %s\nPrice: %f\nStatus: %s",
+		productMock.GetID(),
+		productMock.GetName(),
+		productMock.GetPrice(),
+		productMock.GetStatus())
+	result, err = cli.Run(service, "get", productId, "", 0)
+	require.Nil(t, err)
+	require.Equal(t, result, resultExpected)
+
 }
