@@ -28,14 +28,20 @@ func TestRun(t *testing.T) {
 	productMock.EXPECT().GetName().Return(productName).AnyTimes()
 
 	service := mock_application.NewMockProductServiceInterface(ctrl)
+
 	service.EXPECT().Create(productName, productPrice).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Get(productId).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Enable(gomock.Any()).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Disable(gomock.Any()).Return(productMock, nil).AnyTimes()
 
-	resultExpected := fmt.Sprintf("Product ID %s with the name %s has been created with the price %f and status %s",
-		productId, productName, productPrice, productStatus)
+	resultExpected := fmt.Sprintf("Product ID %s with the name %s has been created with the price %f and Status %s",
+		productMock.GetID(),
+		productMock.GetName(),
+		productMock.GetPrice(),
+		productMock.GetStatus())
+
 	result, err := cli.Run(service, "create", "", productName, productPrice)
+
 	require.Nil(t, err)
-	require.Equal(t, resultExpected, result)
+	require.Equal(t, result, resultExpected)
 }

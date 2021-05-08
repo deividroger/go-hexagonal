@@ -15,7 +15,7 @@ func TestProductService_Get(t *testing.T) {
 	defer ctrl.Finish()
 
 	product := mock_application.NewMockProductInterface(ctrl)
-	persistence := mock_application.NewMockProductPersistenceInteface(ctrl)
+	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 
 	persistence.EXPECT().Get(gomock.Any()).Return(product, nil).AnyTimes()
 
@@ -35,7 +35,7 @@ func TestProductService_Create(t *testing.T) {
 	defer ctrl.Finish()
 
 	product := mock_application.NewMockProductInterface(ctrl)
-	persistence := mock_application.NewMockProductPersistenceInteface(ctrl)
+	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 
@@ -58,7 +58,7 @@ func TestProductService_EnableDisable(t *testing.T) {
 	product := mock_application.NewMockProductInterface(ctrl)
 	product.EXPECT().Enable().Return(nil)
 	product.EXPECT().Disable().Return(nil)
-	persistence := mock_application.NewMockProductPersistenceInteface(ctrl)
+	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 

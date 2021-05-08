@@ -1,10 +1,10 @@
 package application
 
 type ProductService struct {
-	Persistence ProductPersistenceInteface
+	Persistence ProductPersistenceInterface
 }
 
-func NewProductService(persistence ProductPersistenceInteface) *ProductService {
+func NewProductService(persistence ProductPersistenceInterface) *ProductService {
 	return &ProductService{Persistence: persistence}
 }
 
